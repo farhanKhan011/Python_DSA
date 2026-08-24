@@ -122,5 +122,53 @@ output : 0
 4181
 '''
 
+'''
+Finding The nth Fibonacci Number Using Recursion
+To find the nth Fibonacci number we can write code based on the mathematic formula for Fibonacci number n:
+          F(n) = F(n - 1) + F(n - 2)
+This just means that for example the 10th Fibonacci number is the sum of the 9th and 8th Fibonacci numbers.
+Note: This formula uses a 0-based index. This means that to generate the 20th Fibonacci number, we must write F(19).
+When using this concept with recursion, we can let the function call itself as long as 
+n is less than, or equal to, 1. If n≤1
+ it means that the code execution has reached one of the first two Fibonacci numbers 1 or 0.
+'''
+# The code looks like this:
+# def F(n):
+#     if n <= 1:
+#         return n 
+#     else:
+#         return F(n - 1) + F(n - 2)
+# print(F(19))
 
+'''
+now let me explain this small block of code well i teach it to my self on a page so here I will show you that in this note 
+lets instead of 19 we are passing the 3 , like what is the 3rd in fabonacci , like assume that it is nth so the code find it like this 
+def F(3):
+    if 3 <= 1:
+        return 3 
+    else:
+        return F(2) + F(1) # cuz 3 - 1 = 2 and 3-2 = 1
+        now after this since its recursion so the F(2) and F(1) means the function invoke itself twice so again
+        lets F2 calls it self like this def F(2):                 | and F1 calls itself like this  
+                                            if 2 <= 1 :           |    def F(1):                         
+                                                return 2          |         if 1 <= 1:
+                                            else:                 |             return 1
+                                                return F(1) + F(0)|     else:
+                                                                  |         return F(0) + F(-1) 
+              here in the same process it will return at the end 1|   so here the function will finally return 1 
+    so finaly to add that two 1s like 1 + 1 which is 2 so that is the final answer which means that in fabonacci ,
+    the 3rd number will be 2 , and it is like 0 , 1 , 1 , 2 , 3 here many of thinks the 3rd is 1 but since here the index is
+start with 0 so which means on index 3 the value is 2 . and if you do the same for that 19 so the nth term or value will be 4181
 
+There are two important things to notice here: The amount of function calls, 
+and the amount of times the function is called with the same arguments.
+So even though the code is fascinating and shows how recursion work,
+ the actual code execution is too slow and ineffective to use for creating large Fibonacci numbers.
+'''
+'''
+Summary:
+Before we continue, let's look at what we have seen so far:
+An algorithm can be implemented in different ways and in different programming languages.
+Recursion and loops are two different programming techniques that can be used to implement algorithms.
+'''
+# --------Simple Algorithm Completed---------
