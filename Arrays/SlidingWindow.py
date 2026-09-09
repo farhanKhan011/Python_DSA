@@ -35,4 +35,47 @@ That's the key idea:
 
 Remove what leaves the window, add what enters the window.
 '''
+# Challenge 
+'''
+numbers = [2, 1, 5, 1, 3, 2]
+k = 3
 
+Find the maximum sum of any 3 consecutive elements.
+
+Expected:
+
+9
+
+Rules:
+
+❌ Don't calculate every window with sum()
+❌ Don't create new lists
+✅ Use Sliding Window
+✅ O(n) time
+✅ O(1) extra space
+'''
+numbers = [2, 1, 5, 1, 3, 2]
+k = 3 
+def sumSliding(numbers , k ):
+    windowSum = sum(numbers[:k])
+    max_sum = windowSum
+
+    for i in range(len(numbers) -k ):
+        windowSum = windowSum - numbers[i] + numbers[i + k]
+
+        max_sum = max(max_sum , windowSum)
+    return max_sum
+
+
+print(sumSliding(numbers ,  k )) 
+
+
+'''
+Complexity
+Time: O(n) ✅
+Extra Space: O(1) ✅
+
+And importantly, you used sum(numbers[:k]) only once to initialize the first window. That's perfectly fine for this challenge.
+'''
+
+# ----------------Sliding Window Completed---------------- 
