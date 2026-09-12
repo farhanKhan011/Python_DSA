@@ -156,19 +156,18 @@ Calculate the sum of each row and print:
 
 Use nested loops. No sum().
 '''
-matrix = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-]
+# matrix = [
+#     [1, 2, 3],
+#     [4, 5, 6],
+#     [7, 8, 9]
+# ]
 
 
-for i in matrix :
-    row_sum = 0 
-    for j in i:
-        row_sum += j
-    print(row_sum)
-
+# for i in matrix :
+#     row_sum = 0 
+#     for j in i:
+#         row_sum += j
+#     print(row_sum)
 
 
 '''
@@ -181,3 +180,27 @@ Extra Space: O(1) ✅
 '''
 
 # -----------2D Array / Matrix Completed-----------
+
+# -------Additional Challenges-----------
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+for col in range(len(matrix[0])):
+    colSum = 0 
+
+    for row in range(len(matrix)):
+        cVal = matrix[row][col]
+
+        colSum += cVal
+
+    print(colSum)
+
+'''
+Time Complexity: O(R x C) (where R is rows and C is columns). You are visiting every single cell in the grid exactly once.
+Space Complexity: O(1) (Constant Space). You are only tracking a couple of integer variables (colSum, cVal),
+                  no matter how massive the matrix grows.
+'''
+
