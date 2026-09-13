@@ -1,4 +1,2 @@
-  # if char in frequency:
-    #     frequency[char] += 1
-    # else:
-    #     frequency[char] = 1
+print(is_palindrome("hello"))    
+print(is_palindrome("level"))    
