@@ -228,13 +228,11 @@ def search_rotated(numbers , target):
             else:
                 right = mid - 1 
 
-    return - 1
+    return -1
 
 numbers = [12, 15, 18, 2, 4, 6, 8, 10]
-nums = [2, 4, 6, 8, 10,12, 15, 18]
 target = 6
 search_rotated(numbers , target)
 print(search_rotated(numbers , target))
-print(search_rotated(nums , target))
 
 # ----------------Search In Rotated Array Completed----------------------
