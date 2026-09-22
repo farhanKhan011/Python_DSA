@@ -148,7 +148,7 @@ Each level processes n elements during merging.
 
 So:
 
-n × log n = O(n log n)
+n x log n = O(n log n)
 
 Space: O(n) for the typical array implementation because we create merged arrays.
 
@@ -167,5 +167,90 @@ Merge Sort	O(n log n)
 Merge Sort is therefore much more scalable for large datasets.
 '''
 
+'''
+Exactly. 🔥
 
+For:
 
+[8, 3, 5, 4]
+
+mid = 2, so:
+
+left  → [8, 3]
+right → [5, 4]
+
+Then each half is divided again:
+
+[8, 3] → [8] [3]
+[5, 4] → [5] [4]
+
+Now every piece has one element, so we start merging.
+
+For example:
+
+[8] + [3]
+
+Compare 8 and 3:
+
+3 < 8
+
+So:
+
+[3, 8]
+
+And:
+
+[5] + [4] → [4, 5]
+
+Then:
+
+[3, 8] + [4, 5]
+
+becomes:
+
+[3, 4, 5, 8]
+'''
+
+'''
+Perfect. Your Merge Sort is 100% correct.
+
+You implemented both critical parts correctly:
+
+1. Divide
+left = merge_sort(nums[:mid])
+right = merge_sort(nums[mid:])
+
+You recursively split until:
+
+len(nums) <= 1
+2. Merge
+while i < len(left) and j < len(right):
+
+Then you compare the front elements and take the smaller one:
+
+if left[i] <= right[j]:
+    result.append(left[i])
+else:
+    result.append(right[j])
+
+And finally:
+
+result.extend(left[i:])
+result.extend(right[j:])
+
+That last part is important because one side may still have elements after the other side is exhausted.
+
+Your output:
+
+[1, 2, 3, 4, 5, 6, 7, 8]
+🔒 Merge Sort = DONE
+Best: O(n log n)
+Average: O(n log n)
+Worst: O(n log n)
+Space: O(n) for this implementation
+Strategy: Divide and Conquer
+
+ the divide → recursively sort → merge process. ✅
+'''
+
+# ----------merge Sort Completed------------
