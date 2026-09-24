@@ -129,34 +129,207 @@ Recursively sort both sides
 '''
 
 '''
-🎯 Your task: Write quick_sort(numbers) yourself.
+We have:
 
-Use:
+nums = [8, 3, 5, 4, 7, 6, 1, 2]
+1. First: choose a pivot
 
-numbers = [8, 3, 5, 4, 7, 6, 1, 2]
+Let's make the last element the pivot.
 
-Expected:
+pivot = nums[-1]
+
+So:
+
+[8, 3, 5, 4, 7, 6, 1, 2]
+                         ↑
+                       pivot
+
+Therefore:
+
+pivot = 2
+2. Partition
+
+Now we compare every other number with 2.
+
+Our goal:
+
+numbers smaller than pivot | pivot | numbers greater than pivot
+
+For our array:
+
+8 > 2 → right
+3 > 2 → right
+5 > 2 → right
+4 > 2 → right
+7 > 2 → right
+6 > 2 → right
+1 < 2 → left
+
+So we get:
+
+[1] | 2 | [8, 3, 5, 4, 7, 6]
+
+🔥 This is partitioning.
+
+Notice something important:
+
+We did NOT sort [8, 3, 5, 4, 7, 6].
+
+We only separated numbers based on the pivot.
+
+3. Now Quick Sort the two sides
+
+We now have:
+
+[1] | 2 | [8, 3, 5, 4, 7, 6]
+
+The left side:
+
+[1]
+
+is already sorted.
+
+So we recursively Quick Sort:
+
+[8, 3, 5, 4, 7, 6]
+
+Choose its last element as pivot:
+
+[8, 3, 5, 4, 7, 6]
+                   ↑
+                 pivot
+
+Pivot = 6.
+
+Partition:
+
+[3, 5, 4] | 6 | [8, 7]
+
+Again, we haven't completely sorted anything yet.
+
+Then:
+
+[3, 5, 4]
+
+Choose 4:
+
+[3] | 4 | [5]
+
+And:
+
+[8, 7]
+
+Choose 7:
+
+[] | 7 | [8]
+
+Eventually everything becomes:
+
+[1] | 2 | [3] | 4 | [5] | 6 | [7] | 8
+
+Therefore:
 
 [1, 2, 3, 4, 5, 6, 7, 8]
 '''
+'''
+🧠 Now look at the recursive structure
 
-nums = [8, 3,5, 4, 7, 6, 1, 2]
+This is the part you were missing.
 
-def quickSort(nums):
-    if len(nums) == 1 :
-        return nums
-    pivot = nums[-1]
-    result = []
-    for num in nums:
-        if num < pivot:
-            left = num 
+Quick Sort essentially does:
 
-        else:
-            right = num     
+def quick_sort(numbers):
 
-   
+    choose pivot
+
+    partition into:
+        left
+        pivot
+        right
+
+    quick_sort(left)
+    quick_sort(right)
+
+    combine:
+        left + pivot + right
+
+That's the whole algorithm.
+'''
+
+'''
+Let's write a SIMPLE version
+
+Forget the complicated in-place implementation for now.
+
+We'll use extra lists because I want you to understand the algorithm first.
+'''
+# def quickSort(nums):
+#     if len(nums) <= 1:
+#         return nums
+#     pivot = nums[-1]
+#     left = []
+#     right = []
+
+#     for num in nums[:-1]:
+#         if num < pivot:
+#             left.append(num)
+#         else:
+#             right.append(num)
+
+#     return quickSort(left) + [pivot] + quickSort(right)
+
+# nums = [8, 3, 5, 4, 7, 6, 1, 2]
+
+# print(quickSort(nums))
 
 
+'''
+Quick Sort — Interview Level
+1. The core idea
+
+Quick Sort is:
+
+Divide → Partition → Recursively Sort
+
+Choose a pivot, then rearrange the array so:
+
+elements smaller than pivot | pivot | elements larger than pivot
+
+Then recursively do the same thing on the left and right portions.
+
+The important difference from our previous code:
+
+❌ We created new left and right lists.
+
+left = []
+right = []
+
+That costs extra memory.
+
+For interview-level implementation, we should learn in-place partitioning.
+'''    
+
+'''
+In-place Quick Sort
+We'll use the Lomuto partition scheme first because it's easier to reason about correctly.
+'''
+# def quick_sort(nums, low, high):
+#     if low < high:
+#         pivot_index = partition(nums, low, high)
+
+#         quick_sort(nums, low, pivot_index - 1)
+#         quick_sort(nums, pivot_index + 1, high)
 
 
+# def partition(nums, low, high):
+#     pivot = nums[high]
+#     i = low
 
+#     for j in range(low, high):
+#         if nums[j] < pivot:
+#             nums[i], nums[j] = nums[j], nums[i]
+#             i += 1
+
+#     nums[i], nums[high] = nums[high], nums[i]
+
+#     return i
