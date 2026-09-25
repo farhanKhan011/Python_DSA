@@ -333,3 +333,176 @@ We'll use the Lomuto partition scheme first because it's easier to reason about 
 #     nums[i], nums[high] = nums[high], nums[i]
 
 #     return i
+
+'''
+Understand partition() — this is the important part
+
+Suppose:
+
+nums = [8, 3, 5, 4, 7, 6, 1, 2]
+                              ↑
+                            pivot
+
+Pivot = 2.
+
+We maintain:
+
+i = low
+
+i represents the position where the next smaller-than-pivot element should go.
+
+j scans the array.
+
+for j in range(low, high):
+
+Whenever:
+
+nums[j] < pivot
+
+we swap it into position i.
+
+After the scan, we put the pivot at i.
+
+So the final guarantee is:
+
+[values < pivot] pivot [values >= pivot]
+
+Then we return the pivot's final index.
+
+That's the key idea you need to be able to explain verbally in an interview.
+'''
+'''
+4. Complexity
+
+For a reasonably balanced partition:
+
+T(n) = 2T(n/2) + O(n)
+
+Therefore:
+
+Average: O(n log n)
+
+Best case:
+
+O(n log n)
+
+But if the pivot repeatedly produces extremely unbalanced partitions:
+
+T(n) = T(n-1) + O(n)
+
+then:
+
+Worst case: O(n²)
+
+Space:
+
+Partition itself: O(1) extra space
+Recursion stack:
+average: O(log n)
+worst: O(n)
+
+So don't simply say "Quick Sort is O(1) space" in an interview. The recursion stack matters.
+'''
+'''
+The Google-level trade-off
+
+The important interview question isn't:
+
+"Can you memorize Quick Sort?"
+
+It's:
+
+"How would you make Quick Sort perform reliably?"
+
+One major problem is pivot selection.
+
+If we always choose:
+
+pivot = nums[high]
+
+and the input is already sorted:
+
+[1, 2, 3, 4, 5, 6, 7]
+
+we can repeatedly get:
+
+0 elements | pivot | 6 elements
+0 elements | pivot | 5 elements
+0 elements | pivot | 4 elements
+...
+
+That's O(n²).
+
+So in production/interview discussion, you should know strategies such as:
+
+Randomized pivot
+
+Choose a random pivot instead of consistently choosing the last element.
+
+This makes consistently bad partitions much less likely.
+
+Median-of-three
+
+Choose a pivot based on:
+
+first
+middle
+last
+
+and use their median.
+
+This can improve practical behavior on certain inputs.
+
+6. One more important thing
+
+For Python, you normally wouldn't implement Quick Sort in real production code just to sort a list.
+
+Python's built-in:
+
+sorted(nums)
+
+and:
+
+nums.sort()
+
+use Timsort, which is highly optimized.
+
+But for DSA interviews, you absolutely need to understand and implement Quick Sort because the interviewer may ask you to.
+'''
+
+'''
+exercise
+
+Implement this yourself:
+
+nums = [10, 7, 8, 9, 1, 5]
+
+Write an in-place Quick Sort using the Lomuto partition approach, without creating left and right arrays.
+'''
+nums = [10, 7, 8, 9, 1, 5]
+
+def quickSort(nums , low , high ):
+    if low < high :
+        pivot_index = partition(nums , low , high) # 1
+
+        quickSort(nums, low , pivot_index -1 )
+        quickSort(nums, pivot_index + 1 , high)
+
+def partition(nums , low , high):
+    pivot = nums[high]
+    i = low 
+
+    for j in range(low , high):
+        if nums[j] < pivot:
+            nums[i] , nums[j] = nums[j] , nums[i]
+# nums = [1,7,8,9,10,5]
+            i += 1
+    nums[i] , nums[high] = nums[high] , nums[i]
+# nums = [1,5,8,9,10,7]
+    return i # 1
+
+quickSort(nums, 0 , len(nums) -1 )
+
+print(nums)
+
+# -------------Quick Sort Completed-----------
