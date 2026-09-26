@@ -483,7 +483,7 @@ nums = [10, 7, 8, 9, 1, 5]
 
 def quickSort(nums , low , high ):
     if low < high :
-        pivot_index = partition(nums , low , high) # 1
+        pivot_index = partition(nums , low , high) 
 
         quickSort(nums, low , pivot_index -1 )
         quickSort(nums, pivot_index + 1 , high)
@@ -495,14 +495,22 @@ def partition(nums , low , high):
     for j in range(low , high):
         if nums[j] < pivot:
             nums[i] , nums[j] = nums[j] , nums[i]
-# nums = [1,7,8,9,10,5]
+
             i += 1
     nums[i] , nums[high] = nums[high] , nums[i]
-# nums = [1,5,8,9,10,7]
-    return i # 1
+
+    return i 
 
 quickSort(nums, 0 , len(nums) -1 )
 
 print(nums)
 
+'''
+Complexity
+Best: O(n log n)
+Average: O(n log n)
+Worst: O(n²)
+Partition extra space: O(1)
+Recursion stack: O(log n) average, O(n) worst
+'''
 # -------------Quick Sort Completed-----------
