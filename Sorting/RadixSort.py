@@ -83,9 +83,48 @@ Now it's sorted.
 Implementation
 We can use Counting Sort specifically for one digit.
 '''
-def counting_sort_digit(nums):
+def counting_sort_digit(nums, exp):
     n = len(nums)
     output = [0] * n
-    count = [0] * 10  
-    
+    count = [0] * 10
+
+    # Count digits
+    for num in nums:
+        digit = (num // exp) % 10
+        count[digit] += 1
+
+    # Cumulative count
+    for i in range(1, 10):
+        count[i] += count[i - 1]
+
+    # Stable placement
+    for i in range(n - 1, -1, -1):
+        digit = (nums[i] // exp) % 10
+
+        count[digit] -= 1
+        output[count[digit]] = nums[i]
+
+    # Copy back
+    for i in range(n):
+        nums[i] = output[i]
+
+
+def radix_sort(nums):
+    if not nums:
+        return
+
+    max_value = max(nums)
+
+    exp = 1
+
+    while max_value // exp > 0:
+        counting_sort_digit(nums, exp)
+        exp *= 10 
+
+
+nums = [170, 45, 75, 90, 802, 24, 2, 66]
+
+radix_sort(nums)
+
+print(nums)
 
